@@ -1,0 +1,39 @@
+/* @import "tailwindcss"; */
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: #EEEEEE;
+}
+
+.search-header{
+    background-color: white;
+}
+
+.search-header input{
+    background-color: #EEEEEE;
+}
+
+.note-type p {
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    background-color: #AEC9AF;
+    padding: 4px 8px;
+}
+
+.delete-icon{
+    cursor: pointer;
+}
+
+.note-completed{
+    background-color: rgb(207, 204, 204);
+}
+
+.filter-items:hover{
+    color: #4EABF5;
+    cursor: pointer;
+}
