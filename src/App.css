@@ -7,6 +7,7 @@
 
 body{
     background-color: #EEEEEE;
+    /* background-color: #5a5a5a; */
 }
 
 .search-header{
@@ -15,14 +16,24 @@ body{
 
 .search-header input{
     background-color: #EEEEEE;
+    
 }
 
 .note-type p {
     font-weight: bold;
     border: none;
     border-radius: 15px;
-    background-color: #AEC9AF;
     padding: 4px 8px;
+}
+
+.type-Home{
+    background-color: #AEC9AF;
+}
+.type-Personal{
+    background-color: rgb(181, 163, 211);
+}
+.type-Business{
+    background-color: rgb(213, 131, 156);
 }
 
 .delete-icon{

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import DateObject from "react-date-object";
 
 const AddNoteModal = ({addNote}) => {
   const [title, setTitle] = useState("");
@@ -9,16 +10,23 @@ const AddNoteModal = ({addNote}) => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    addNote({
+  const date = new DateObject();
+
+
+    const newNote = {
         id: crypto.randomUUID(),
         title,
         description,
         type,
-        completed: false
-    });
+        completed: false,
+        date: date.format() || new Date().toISOString(),
+    };
+
+    addNote(newNote);
     setTitle("");
     setDescription("");
-    setType(""); 
+    // setType(""); 
+    // console.log(newNote);
 
     document.getElementById("closeModalBtn").click(); // Close modal after adding
   };

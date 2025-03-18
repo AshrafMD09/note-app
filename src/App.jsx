@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import AddNoteModal from "./AddNoteModal";
 import NotesList from "./NotesList";
 
+
 function App() {
+
+  const [showCompleted , setShowCompleted] = useState(false);
   const filterList = ["All Notes","Personal","Home","Business"];
+  const [filterType, setFilterType] = useState("All Notes");
+
   const [notes, setNotes] = useState([
     {
       id: 11,
@@ -11,12 +16,29 @@ function App() {
       description: "having fun with the friends",
       type: "Home",
       completed: false,
+      date:'10/10/2020'
     },
+    {
+      id: 121,
+      title: "Going out",
+      description: "having fun with the friends",
+      type: "Personal",
+      completed: false,
+      date:'10/10/2020'
+    }
   ]);
 
   useEffect(() => {
     console.log(notes);
-  });
+  }),[notes];
+
+  const handleCheckboxChange = () => {
+    setShowCompleted(prev => !prev);
+  };
+
+  const handleFilterChange = (type) => {
+    setFilterType(type);
+  };
 
   const addNote = (note) => {
     setNotes([...notes, note]);
@@ -31,6 +53,17 @@ function App() {
       notes.map((note) => (note.id === id ? { ...note, completed } : note))
     );
   };
+
+    // 🔍 Filtering Logic
+    let filteredNotes = notes;
+
+    if (showCompleted) {
+      filteredNotes = filteredNotes.filter((note) => note.completed);
+    }
+  
+    if (filterType !== "All Notes") {
+      filteredNotes = filteredNotes.filter((note) => note.type === filterType);
+    }
 
   return (
     <>
@@ -53,8 +86,11 @@ function App() {
 
           <div className="d-flex justify-content-between">
           <ul className="d-flex justify-content-between w-25 mb-0 p-0">
-            {filterList.map((item, key) => (
-              <li key={key} className="list-group-item filter-items">
+            {filterList.map((item) => (
+              <li 
+              key={item} 
+              className={`list-group-item filter-items ${filterType === item ? "fw-bold" : ""}`}
+              onClick={() => handleFilterChange(item)}>
                 {item}
               </li>
             ))}
@@ -62,19 +98,25 @@ function App() {
 
           
           <label>
-            <input type="checkbox" className="me-2" />
+            <input 
+            type="checkbox" 
+            className="me-2" 
+            checked={showCompleted}
+            onChange={handleCheckboxChange}
+            />
             Show only completed notes
           </label>
+          
           </div>
 
         </div>
 
         <div className="row justify-content-between">
-          {notes.length === 0 ? (
-            <p className="fw-bold">No Notes found</p>
+          {filteredNotes.length === 0 ? (
+            <p className="fw-bold text-danger">No Notes found</p>
           ) : (
             <NotesList
-              notes={notes}
+              notes={filteredNotes}
               deleteNote={deleteNote}
               toggleNote={toggleNote}
             />
