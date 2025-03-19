@@ -6,8 +6,8 @@
 }
 
 body{
+    background-color: #5a5a5a;
     background-color: #EEEEEE;
-    /* background-color: #5a5a5a; */
 }
 
 .search-header{
@@ -36,7 +36,7 @@ body{
     background-color: rgb(213, 131, 156);
 }
 
-.delete-icon{
+.delete-icon, .edit-icon{
     cursor: pointer;
 }
 
