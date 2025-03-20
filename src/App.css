@@ -7,7 +7,7 @@
 
 body{
     background-color: #5a5a5a;
-    background-color: #EEEEEE;
+    /* background-color: #EEEEEE; */
 }
 
 .search-header{
@@ -48,3 +48,9 @@ body{
     color: #4EABF5;
     cursor: pointer;
 }
+
+.notes-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 16px; /* Space between items */
+  }

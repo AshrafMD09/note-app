@@ -10,7 +10,7 @@ const NotesList = ({ notes, deleteNote, toggleNote }) => {
           // "card col-sm-3 px-3"
           <div
             key={note.id}
-            className={`card col-sm-3 px-3 ${
+            className={`card px-3 mb-1 ${
               note.completed === true ? "note-completed" : ""
             }`}
           >
@@ -45,62 +45,69 @@ const NotesList = ({ notes, deleteNote, toggleNote }) => {
               <p className="card-text">{note.description}</p>
               <p className="text-end fw-light">{note.date}</p>
             </div>
-          </div>
-        );
-      })}
 
-      <div>
-        {/* 📝 Edit Modal */}
-        <div className="modal fade" id="editNoteModal" tabIndex="-1">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title fw-bold">Edit Note</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                ></button>
-              </div>
+            <div>
+              {/* 📝 Edit Modal */}
+              <div className="modal fade" id="editNoteModal" tabIndex="-1">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title fw-bold">Edit Note</h5>
+                      <button
+                        type="button"
+                        className="btn-close"
+                        data-bs-dismiss="modal"
+                      ></button>
+                    </div>
 
-              {/* 📋 Form Inside Edit Modal */}
-              <div className="modal-body">
-                <form>
-                  <div className="mb-3">
-                    <label className="form-label">Title</label>
-                    <input type="text" className="form-control" required />
+                    {/* 📋 Form Inside Edit Modal */}
+                    <div className="modal-body">
+                      <form>
+                        <div className="mb-3">
+                          <label className="form-label">Title</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            required
+                          />
+                        </div>
+
+                        <div className="mb-3">
+                          <label className="form-label">Description</label>
+                          <textarea
+                            className="form-control"
+                            required
+                          ></textarea>
+                        </div>
+
+                        <select className=" form-select">
+                          <option value="Personal">Personal</option>
+                          <option value="Home">Home</option>
+                          <option value="Business">Business</option>
+                        </select>
+
+                        <div className="modal-footer">
+                          <button
+                            type="button"
+                            id="closeModalBtn"
+                            className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button type="submit" className="btn btn-success">
+                            Update Note
+                          </button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-
-                  <div className="mb-3">
-                    <label className="form-label">Description</label>
-                    <textarea className="form-control" required></textarea>
-                  </div>
-
-                  <select className=" form-select">
-                    <option value="Personal">Personal</option>
-                    <option value="Home">Home</option>
-                    <option value="Business">Business</option>
-                  </select>
-
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      id="closeModalBtn"
-                      className="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button type="submit" className="btn btn-success">
-                      Update Note
-                    </button>
-                  </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        );
+      })}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddNoteModal from "./AddNoteModal";
 import NotesList from "./NotesList";
 // import SearchItem from "./SearchItem";
@@ -9,32 +9,22 @@ function App() {
   const [filterType, setFilterType] = useState("All Notes");
   const [search, setSearch] = useState("");
 
-  const [notes, setNotes] = useState([
-    {
-      id: 11,
-      title: "Going out",
-      description: "Having fun with the friends",
-      type: "Personal",
-      completed: false,
-      date: "10/10/2020",
-    },
-    {
-      id: 121,
-      title: "Sleeping",
-      description: "Just sleeping today",
-      type: "Home",
-      completed: false,
-      date: "10/10/2020",
-    },
-    {
-      id: 12,
-      title: "Working",
-      description: "Programming a video games",
-      type: "Business",
-      completed: false,
-      date: "10/10/2020",
-    },
-  ]);
+
+
+  const [notes, setNotes] = useState([]);
+
+        // Load tasks from localStorage
+      useEffect(() => {
+        const savedNotes = JSON.parse(localStorage.getItem("notes"));
+        if (savedNotes) {
+          setNotes(savedNotes);
+        }
+      }, []);
+    
+      // Save tasks to localStorage
+      useEffect(() => {
+        localStorage.setItem("notes", JSON.stringify(notes));
+      }, [notes]);
 
   const handleCheckboxChange = () => {
     setShowCompleted((prev) => !prev);
@@ -121,7 +111,7 @@ function App() {
           </div>
         </div>
 
-        <div className="row justify-content-between">
+        <div className="notes-container">
           {filteredNotes.filter((note) =>
             search.toLowerCase() === ""
               ? true
