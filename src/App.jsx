@@ -1,30 +1,34 @@
 import { useEffect, useState } from "react";
 import AddNoteModal from "./AddNoteModal";
 import NotesList from "./NotesList";
-// import SearchItem from "./SearchItem";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function App() {
   const [showCompleted, setShowCompleted] = useState(false);
   const filterList = ["All Notes", "Personal", "Home", "Business"];
   const [filterType, setFilterType] = useState("All Notes");
   const [search, setSearch] = useState("");
-
-
-
   const [notes, setNotes] = useState([]);
+  const [editedNote, setEditedNote] = useState(null);
 
-        // Load tasks from localStorage
-      useEffect(() => {
-        const savedNotes = JSON.parse(localStorage.getItem("notes"));
-        if (savedNotes) {
-          setNotes(savedNotes);
-        }
-      }, []);
-    
-      // Save tasks to localStorage
-      useEffect(() => {
-        localStorage.setItem("notes", JSON.stringify(notes));
-      }, [notes]);
+
+  useEffect(() => {
+    AOS.init();
+  }, [notes]);
+
+    // Load tasks from localStorage
+  useEffect(() => {
+    const savedNotes = JSON.parse(localStorage.getItem("notes"));
+    if (savedNotes) {
+      setNotes(savedNotes);
+    }
+  }, []);
+
+  // Save tasks to localStorage
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   const handleCheckboxChange = () => {
     setShowCompleted((prev) => !prev);
@@ -45,6 +49,12 @@ function App() {
   const toggleNote = (id, completed) => {
     setNotes(
       notes.map((note) => (note.id === id ? { ...note, completed } : note))
+    );
+  };
+
+  const updateNote = (updatedNote) => {
+    setNotes((prevNotes) =>
+      prevNotes.map((note) => (note.id === updatedNote.id ? updatedNote : note))
     );
   };
 
@@ -127,6 +137,9 @@ function App() {
               )}
               deleteNote={deleteNote}
               toggleNote={toggleNote}
+              setEditedNote={setEditedNote}
+              editedNote={editedNote}
+              updateNote={updateNote}
             />
           )}
         </div>

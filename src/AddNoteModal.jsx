@@ -7,11 +7,10 @@ const AddNoteModal = ({addNote}) => {
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
 
-  const handelSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-  const date = new DateObject();
-
+    const date = new DateObject().format("YYYY-MM-DD | HH:mm") || new Date().toISOString();
 
     const newNote = {
         id: crypto.randomUUID(),
@@ -19,14 +18,13 @@ const AddNoteModal = ({addNote}) => {
         description,
         type,
         completed: false,
-        date: date.format() || new Date().toISOString(),
+        date
     };
 
     addNote(newNote);
     setTitle("");
     setDescription("");
-    // setType(""); 
-    // console.log(newNote);
+    setType(""); 
 
     document.getElementById("closeModalBtn").click(); // Close modal after adding
   };
@@ -43,7 +41,7 @@ const AddNoteModal = ({addNote}) => {
       </button>
 
       {/* 📝 Modal */}
-      <div className="modal fade" id="addNoteModal" tabIndex="-1">
+      <div className="modal fade add-modal" id="addNoteModal" tabIndex="-1">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -57,7 +55,7 @@ const AddNoteModal = ({addNote}) => {
 
             {/* 📋 Form Inside Modal */}
             <div className="modal-body">
-              <form onSubmit={handelSubmit}>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label className="form-label">Title</label>
                   <input
@@ -81,6 +79,7 @@ const AddNoteModal = ({addNote}) => {
 
                 <select
                   className=" form-select"
+                  value={type}
                   onChange={(e) => setType(e.target.value)}
                   required
                 >
@@ -94,7 +93,7 @@ const AddNoteModal = ({addNote}) => {
                   <button
                     type="button"
                     id="closeModalBtn"
-                    className="btn btn-secondary"
+                    className="btn btn-dark"
                     data-bs-dismiss="modal"
                   >
                     Close

@@ -38,10 +38,17 @@ body{
 
 .delete-icon, .edit-icon{
     cursor: pointer;
+    background: none;
+    border: none;
 }
 
 .note-completed{
     background-color: rgb(207, 204, 204);
+}
+
+.note-date{
+    font-family: 'Courier New', Courier, monospace;  
+    opacity: 0.7;
 }
 
 .filter-items:hover{
@@ -54,3 +61,8 @@ body{
     grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
     gap: 16px; /* Space between items */
   }
+
+.add-modal , .edit-modal{
+    margin-top: 15%;
+}
+
